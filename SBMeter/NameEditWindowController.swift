@@ -27,6 +27,7 @@ class NameEditWindowController: NSWindowController {
         self.window?.makeKey()
         self.window?.makeKeyAndOrderFront(self)
         self.window?.makeMain()
+        NSApp.activate(ignoringOtherApps: true)
         print(#function)
     }
     

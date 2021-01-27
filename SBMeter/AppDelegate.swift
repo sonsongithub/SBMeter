@@ -23,13 +23,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             button.image = NSImage.init(systemSymbolName: "thermometer", accessibilityDescription: nil)
         }
         self.statusItem.menu = menu
-       
-        let value = Sensor(uuid: "a", name: "a", timestamp: Date(), temperture: 10.2, humidity: 80.3, battery: 100)
         
-        menu.addItem(NSMenuItem.tempertureMenuItem(with: value))
-        menu.addItem(NSMenuItem.humidityItem(with: value))
-        menu.addItem(NSMenuItem.batteryMenuItem(with: value))
-        menu.addItem(NSMenuItem.separator())
+        do {
+            let menuItem = NSMenuItem()
+            menuItem.title = "About SBMeter"
+            menuItem.action = #selector(AppDelegate.about(sender:))
+            menu.addItem(menuItem)
+        }
         
         let menuItem = NSMenuItem()
         menuItem.title = "Quit"
@@ -74,10 +74,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             menu.addItem(NSMenuItem.batteryMenuItem(with: value))
             menu.addItem(NSMenuItem.separator())
         }
-        let menuItem = NSMenuItem()
-        menuItem.title = "Quit"
-        menuItem.action = #selector(AppDelegate.quit(sender:))
-        menu.addItem(menuItem)
+        do {
+            let menuItem = NSMenuItem()
+            menuItem.title = "About SBMeter"
+            menuItem.action = #selector(AppDelegate.about(sender:))
+            menu.addItem(menuItem)
+        }
+        do {
+            let menuItem = NSMenuItem()
+            menuItem.title = "Quit"
+            menuItem.action = #selector(AppDelegate.quit(sender:))
+            menu.addItem(menuItem)
+        }
     }
 
     
@@ -87,6 +95,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     @IBAction func quit(sender: NSButton) {
         NSApplication.shared.terminate(self)
+    }
+    
+    @IBAction func about(sender: NSButton) {
+        let str = NSMutableAttributedString(string: "Yuichi Yoshida, all rights reserved.\nhttps://github.com/sonsongithub/SBMeter")
+        str.addAttribute(.link, value: URL(string: "https://github.com/sonsongithub/SBMeter")!, range: NSRange(location: 37, length: 39))
+        let info = [NSApplication.AboutPanelOptionKey.credits: str]
+        NSApp.orderFrontStandardAboutPanel(options: info)
+        NSApp.activate(ignoringOtherApps: true)
     }
     
     @IBAction func editName(sender: Any) {
