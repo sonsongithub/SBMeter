@@ -35,8 +35,8 @@ extension NSMenuItem {
     private class func menuItem(with icon: String, string: String) -> NSMenuItem {
         let menuItem = NSMenuItem()
         
-        let leftMargin = CGFloat(12)
-        let bottomAndTopMargin = CGFloat(4)
+//        let leftMargin = CGFloat(12)
+//        let bottomAndTopMargin = CGFloat(4)
         
         let label = NSTextField()
         label.frame = CGRect(origin: CGPoint.zero, size: CGSize.zero)
