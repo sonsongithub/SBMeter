@@ -42,12 +42,16 @@ class BLEController: NSObject, CBCentralManagerDelegate {
         print(central.state)
         switch central.state {
         case .poweredOn:
-            centralManager?.scanForPeripherals(withServices: nil, options: nil)
+            let options: [String : Any] = [CBCentralManagerScanOptionAllowDuplicatesKey: NSNumber(value: true)]
+            let services = [CBUUID(string: "0D00")]
+            centralManager?.scanForPeripherals(withServices: services, options: options)
             break
         default:
             break
         }
     }
+        
+    
     
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
 
